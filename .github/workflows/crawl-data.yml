@@ -43,5 +43,9 @@ jobs:
           git checkout -b data
           git add temp
           git add final.csv
-          git commit -m "Update data"
-          git push origin data
+          if git diff-index --quiet HEAD --; then
+            echo "No files to commit"
+          else
+            git commit -m "Update data"
+            git push origin data
+          fi
