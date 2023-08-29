@@ -8,7 +8,7 @@ def main() -> None:
 
     print('Start scraping data from %s' % URL)
     print('Scraping in progress...')
-    # scrape_data(URL, step=8)
+    scrape_data(URL, step=8)
     print('Done scraping!')
     
     print('Start formatting...')
