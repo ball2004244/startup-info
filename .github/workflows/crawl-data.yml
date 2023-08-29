@@ -1,7 +1,11 @@
 name: Crawl Startup Data
 
 # do this as a cron job every 6h
+# or trigger on push to master
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: "0 */6 * * *"
 
