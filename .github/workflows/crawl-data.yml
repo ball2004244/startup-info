@@ -1,7 +1,5 @@
 name: Crawl Startup Data
 
-# do this as a cron job every 6h
-# or trigger on push to master
 on:
   push:
     branches:
@@ -21,6 +19,9 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+    
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
