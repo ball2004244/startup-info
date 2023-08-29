@@ -27,13 +27,9 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Crawl data
+      - name: Crawl and format data
         run: |
-          python3 scraper.py
-
-      - name: Format data
-        run: |
-          python3 csv_formatter.py
+          python3 main.py
 
       - name: Create a new branch with output data
         run: |
