@@ -34,8 +34,10 @@ jobs:
         run: |
           python3 csv_formatter.py
 
-      - name: Create a new branch with only final.csv
+      - name: Create a new branch with output data
         run: |
+          git config --local user.email "nguyenminhtam7124@gmail.com"
+          git config --local user.name "Tam Nguyen"
           git checkout -b data
           git add final.csv
           git commit -m "Update data"
