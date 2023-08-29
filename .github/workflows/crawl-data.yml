@@ -29,13 +29,17 @@ jobs:
 
       - name: Crawl and format data
         run: |
-          python3 main.py
+          echo "start crawling process"
+          echo "! This process might take a while to crawl the data"
+          python3 -u main.py
+          echo "end crawling!"
 
       - name: Create a new branch with output data
         run: |
           git config --local user.email "nguyenminhtam7124@gmail.com"
           git config --local user.name "Tam Nguyen"
           git checkout -b data
+          git add temp
           git add final.csv
           git commit -m "Update data"
           git push origin data
