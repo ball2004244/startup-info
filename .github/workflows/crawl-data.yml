@@ -32,7 +32,7 @@ jobs:
 
       - name: Format data
         run: |
-          python3 formatter.py
+          python3 csv_formatter.py
 
       - name: Create a new branch with only final.csv
         run: |
