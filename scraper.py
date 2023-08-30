@@ -76,5 +76,5 @@ if __name__ == '__main__':
 
     print('Start scraping data from %s' % URL)
     print('Scraping in progress...')
-    scrape_data(URL, step=8)
+    scrape_data(URL, step=100)
     print('Done scraping!')
