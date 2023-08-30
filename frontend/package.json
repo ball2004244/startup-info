@@ -1,0 +1,19 @@
+{
+  "name": "startup-info-frontend",
+  "version": "1.0.0",
+  "description": "The frontend site for startup-info-frontend",
+  "main": "app.ts",
+  "author": "Tam Nguyen",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.7",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "start": "ts-node app.ts"
+  }
+}
