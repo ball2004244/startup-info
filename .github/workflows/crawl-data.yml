@@ -49,7 +49,10 @@ jobs:
           git pull
 
           if git ls-remote --heads origin data | grep -q 'data'; then
+            git stash
             git checkout data
+            git stash pop
+
           else
             git checkout -b data
           fi
