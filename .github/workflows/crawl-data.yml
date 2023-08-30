@@ -41,28 +41,13 @@ jobs:
           echo "Start formatting crawled data"
           python3 -u csv_formatter.py
           echo "End formatting!"
-
-      - name: Check if remote branch exists
-        run: |
-          git config --local user.email "nguyenminhtam7124@gmail.com"
-          git config --local user.name "Tam Nguyen"
-          git pull
-
-          if git ls-remote --heads origin data | grep -q 'data'; then
-            git stash
-            git checkout data
-            git stash pop
-
-          else
-            git checkout -b data
-          fi
-
+      
       - name: Commit and push to GitHub
-        run: |
-          git add temp final.csv
-          if ! git diff-index --quiet HEAD --; then
-            git commit -m "Update data"
-            git push origin data
-          else
-            echo "No files to commit"
-          fi
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Tam Nguyen
+          author_email: nguyenminhtam7124@gmail.com
+          message: "Update data"
+          add: "temp final.csv"
+          new_branch: data
+
