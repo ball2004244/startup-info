@@ -86,77 +86,67 @@ def process_right_pane(table: BeautifulSoup) -> Tuple[List[str], List[List[str]]
         # check if len of company_info is 6, if not, add empty string at beginning
         while len(company_info) < 6:
             company_info.insert(0, '')
-            
+
         processed_data.append(company_info)
 
     return header_contents, processed_data
 
 
 def formatter() -> None:
-    try:
-        folder = 'temp'
-        out_file = 'final.csv'
-        num_files = len(os.listdir(folder))
-        add_header = True
+    folder = 'temp'
+    out_file = 'final.csv'
+    num_files = len(os.listdir(folder))
+    add_header = True
 
-        for i in range(num_files):
-            # get prev_set
-            prev_file = 'prev_set.pkl'
-            # verify if prev_set.pkl exists with os
+    for i in range(num_files):
+        # get prev_set
+        prev_file = 'prev_set.pkl'
+        # verify if prev_set.pkl exists with os
 
-            if os.path.exists(prev_file):
-                with open(prev_file, 'rb') as f:
-                    prev_set = pickle.load(f)
+        if os.path.exists(prev_file):
+            with open(prev_file, 'rb') as f:
+                prev_set = pickle.load(f)
+        else:
+            prev_set = set()
+
+        cur_file = '%s/index_%d.html' % (folder, i)
+        table = get_data_table(cur_file)
+        left_header, left_data = process_left_pane(table)
+        right_headers, right_data = process_right_pane(table)
+
+        left_df = pd.DataFrame(left_data, columns=[left_header])
+        right_df = pd.DataFrame(right_data, columns=right_headers)
+
+        # loop through data and add to prev_set
+        for j, datum in enumerate(left_data):
+            if datum not in prev_set:
+                prev_set.add(datum)
             else:
-                prev_set = set()
+                # remove data position j from left_df and right_df
+                left_df.drop(j, inplace=True)
+                right_df.drop(j, inplace=True)
 
-            cur_file = '%s/index_%d.html' % (folder, i)
-            table = get_data_table(cur_file)
-            left_header, left_data = process_left_pane(table)
-            right_headers, right_data = process_right_pane(table)
-            
-            left_df = pd.DataFrame(left_data, columns=[left_header])
-            right_df = pd.DataFrame(right_data, columns=right_headers)
+        # merge left_df and right_df
+        merged_df = pd.concat([left_df, right_df], axis=1)
 
-            # loop through data and add to prev_set
-            for j, datum in enumerate(left_data):
-                if datum not in prev_set:
-                    prev_set.add(datum)
-                else:
-                    # remove data position j from left_df and right_df
-                    left_df.drop(j, inplace=True)
-                    right_df.drop(j, inplace=True)
+        # only save when merged_df is not empty
+        if merged_df.empty:
+            continue
 
-            # merge left_df and right_df
-            merged_df = pd.concat([left_df, right_df], axis=1)
+        # add header if necessary
+        # if add_header:
+        #     merged_header = [left_header] + right_headers
+        #     merged_header_df = pd.DataFrame([merged_header])
+        #     merged_header_df.to_csv(out_file, mode='w', header=False, index=False)
+        #     add_header = False
 
-            # only save when merged_df is not empty
-            if merged_df.empty:
-                continue
+        # # add merged data to csv
+        merged_df.to_csv(out_file, mode='a', header=False, index=False)
 
-            # add header if necessary
-            # if add_header:
-            #     merged_header = [left_header] + right_headers
-            #     merged_header_df = pd.DataFrame([merged_header])
-            #     merged_header_df.to_csv(out_file, mode='w', header=False, index=False)
-            #     add_header = False
+        # save prev_set to prev_set.pkl
+        with open(prev_file, 'wb') as f:
+            pickle.dump(prev_set, f)
 
-            # # add merged data to csv
-            merged_df.to_csv(out_file, mode='a', header=False, index=False)
-
-            # save prev_set to prev_set.pkl
-            with open(prev_file, 'wb') as f:
-                pickle.dump(prev_set, f)
-    except Exception as e:
-        # locate line of error
-        import sys
-        
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        
-        print('Error at line %d' % exc_tb.tb_lineno)
-        print(e)
-        print('Exiting...')
 
 if __name__ == '__main__':
     print('Start formatting...')
