@@ -28,7 +28,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
-      - name: Install Node with yarn
+      - name: Install Node.js 14
         uses: actions/setup-node@v2
         with:
           node-version: "14"
