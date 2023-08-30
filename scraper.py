@@ -54,7 +54,8 @@ def repeat_scroll(driver, step=8) -> None:
         for file in os.listdir(temp_folder):
             os.remove(os.path.join(temp_folder, file))
 
-    page_height = driver.get_window_size()['height']
+    # page_height = driver.get_window_size()['height']
+    page_height = 30
 
     scroll_bar = driver.find_element(
         By.CLASS_NAME, 'antiscroll-scrollbar-vertical')
@@ -76,5 +77,5 @@ if __name__ == '__main__':
 
     print('Start scraping data from %s' % URL)
     print('Scraping in progress...')
-    scrape_data(URL, step=100)
+    scrape_data(URL, step=8)
     print('Done scraping!')
