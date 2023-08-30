@@ -23,7 +23,7 @@ jobs:
 
       - name: Install ChromeDriver
         uses: nanasess/setup-chromedriver@v2
-    
+
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
@@ -35,19 +35,17 @@ jobs:
           echo "! This process might take a while to crawl the data"
           python3 -u scraper.py
           echo "End crawling!"
-      
+
       - name: Format data
         run: |
           echo "Start formatting crawled data"
           python3 -u csv_formatter.py
           echo "End formatting!"
 
-      - name: Upload new data to GitHub
+      - name: Check if remote branch exists
         run: |
           git config --local user.email "nguyenminhtam7124@gmail.com"
           git config --local user.name "Tam Nguyen"
-
-          # Check if the branch exists on the remote
           if git rev-parse --verify origin/data >/dev/null 2>&1; then
             git fetch origin data:data
             git checkout data
@@ -56,11 +54,13 @@ jobs:
             git checkout -b data
           fi
 
+      - name: Commit and push to GitHub
+        run: |
           git add temp final.csv
-
-          if git diff-index --quiet HEAD --; then
-            echo "No files to commit"
-          else
+          if ! git diff-index --quiet HEAD --; then
             git commit -m "Update data"
+            git pull origin data  # Pull remote changes before pushing
             git push origin data
+          else
+            echo "No files to commit"
           fi
