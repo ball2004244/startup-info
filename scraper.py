@@ -70,3 +70,11 @@ def repeat_scroll(driver, step=8) -> None:
 
         # Wait for a short time to allow content to load
         time.sleep(3)
+
+if __name__ == '__main__':
+    URL = 'https://www.geekwire.com/fundings/'
+
+    print('Start scraping data from %s' % URL)
+    print('Scraping in progress...')
+    scrape_data(URL, step=8)
+    print('Done scraping!')

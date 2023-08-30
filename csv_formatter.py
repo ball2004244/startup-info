@@ -157,3 +157,8 @@ def formatter() -> None:
         print('Error at line %d' % exc_tb.tb_lineno)
         print(e)
         print('Exiting...')
+
+if __name__ == '__main__':
+    print('Start formatting...')
+    formatter()
+    print('Done formatting!')
