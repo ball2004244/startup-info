@@ -43,6 +43,7 @@ jobs:
 
       - name: Run program
         run: |
+          ls -la
           yarn start
 
       - name: Build with Jekyll
