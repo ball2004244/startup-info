@@ -54,8 +54,7 @@ def repeat_scroll(driver, step=8) -> None:
         for file in os.listdir(temp_folder):
             os.remove(os.path.join(temp_folder, file))
 
-    # page_height = driver.get_window_size()['height']
-    page_height = 30
+    page_height = driver.get_window_size()['height']
 
     scroll_bar = driver.find_element(
         By.CLASS_NAME, 'antiscroll-scrollbar-vertical')
