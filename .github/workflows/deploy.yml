@@ -30,11 +30,11 @@ jobs:
 
       - name: Navigate to Frontend directory
         run: cd frontend
-        
-      - name: Install Node.js 14
+
+      - name: Install Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "18"
 
       - name: Install dependencies
         uses: borales/actions-yarn@v4
