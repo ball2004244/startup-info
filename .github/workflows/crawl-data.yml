@@ -47,7 +47,8 @@ jobs:
         with:
           author_name: Tam Nguyen
           author_email: nguyenminhtam7124@gmail.com
-          message: "Update data"
+          message: Update data
           add: "temp final.csv"
           new_branch: data
+          push: origin data --set-upstream --force
 
