@@ -151,8 +151,9 @@ def formatter(out_file: str = 'final.csv', folder: str = 'temp', check_file: str
         table = get_data_table(cur_file)
         merged_df = process_data(table)
 
+        temp_data = merged_df.iloc[:, 0]
         # loop through first column and check if data is in check_set
-        for j, datum in enumerate(merged_df.iloc[:, 0]):
+        for j, datum in enumerate(temp_data):
             if datum not in check_set:
                 check_set.add(datum)
             else:
