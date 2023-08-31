@@ -34,7 +34,7 @@ jobs:
         run: |
           echo "Start crawling process"
           echo "! This process might take a while to crawl the data"
-          python3 -u scraper.py
+          python3 -u multi_scraper.py
           echo "End crawling!"
 
       - name: Format data
