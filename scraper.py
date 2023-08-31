@@ -30,7 +30,7 @@ def scrape_data(URL: str, step: int = 8) -> None:
             fix_hairline=True,
             )
     driver.get(URL)
-    
+
     src = driver.find_element(
         By.CLASS_NAME, 'airtable-embed').get_attribute('src')
     print('Found src:', src)
@@ -46,8 +46,7 @@ def scrape_data(URL: str, step: int = 8) -> None:
     driver.close()
 
 
-def repeat_scroll(driver, step=8) -> None:
-    temp_folder = 'temp'
+def repeat_scroll(driver, step=8, temp_folder='temp'):
     if not os.path.exists(temp_folder):
         os.mkdir(temp_folder)
     else:
@@ -70,6 +69,7 @@ def repeat_scroll(driver, step=8) -> None:
 
         # Wait for a short time to allow content to load
         time.sleep(3)
+
 
 if __name__ == '__main__':
     URL = 'https://www.geekwire.com/fundings/'
