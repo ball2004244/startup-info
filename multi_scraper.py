@@ -134,7 +134,7 @@ def multi_scraping(URL: str, step: int = 8, height: int = 100, num_agents: int =
 if __name__ == '__main__':
     # * Define initial website
     URL = 'https://www.geekwire.com/fundings/'
-    step = 8
+    step = 4
     num_agents = 6
 
     print('Start scraping data from %s' % URL)
