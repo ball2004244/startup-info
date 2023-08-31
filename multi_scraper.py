@@ -86,7 +86,7 @@ def repeat_scroll(driver, start: int = 0, end: int = 100, step: int = 8, index: 
         By.CLASS_NAME, 'antiscroll-scrollbar-vertical')
 
     # scroll to start position
-    for i in range(0, start, step):
+    for i in range(0, start, step * 2):
         ActionChains(driver).drag_and_drop_by_offset(
             scroll_bar, 0, step).click().perform()
 
