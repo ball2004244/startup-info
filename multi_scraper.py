@@ -8,10 +8,9 @@ from helper import create_folder
 from typing import Tuple
 import threading
 import time
-import os
 
-global THREAD_HEALTH
 THREAD_HEALTH = {}
+exit_event = threading.Event()
 
 # * Return URL of target website
 # * Input: URL of initial website
@@ -87,8 +86,10 @@ def repeat_scroll(driver, start: int = 0, end: int = 100, step: int = 8, index: 
         By.CLASS_NAME, 'antiscroll-scrollbar-vertical')
 
     # scroll to start position
-    ActionChains(driver).drag_and_drop_by_offset(
-        scroll_bar, 0, start).click().perform()
+    for i in range(0, start, step):
+        ActionChains(driver).drag_and_drop_by_offset(
+            scroll_bar, 0, step).click().perform()
+
 
     for i, pos in enumerate(range(start, end, step)):
         with open('%s/index_%d-%d.html' % (temp_folder, index, i), 'w') as f:
@@ -102,16 +103,19 @@ def repeat_scroll(driver, start: int = 0, end: int = 100, step: int = 8, index: 
         # Update thread health to cli
         THREAD_HEALTH[index] = [pos - start, end - start]
         
-        health_check()
         # wait for page to load
         time.sleep(3)
 
 def health_check() -> None:
-    print('Thread Health')
-    print('Scraping with %d agents' % len(THREAD_HEALTH))
-    for key, value in THREAD_HEALTH.items():
-        print('Agent %d, Progress: %d/%d' % (key, value[0], value[1]))
-    print('-' * 20)
+    while not exit_event.is_set():
+        if all([value[0] == value[1] for value in THREAD_HEALTH.values()]):
+            break
+        print('Thread Health')
+        print('Scraping with %d agents' % len(THREAD_HEALTH))
+        for key, value in THREAD_HEALTH.items():
+            print('Agent %d, Progress: %d/%d' % (key, value[0], value[1]))
+        print('-' * 20)
+        time.sleep(5)
 
 def multi_scraping(URL: str, step: int = 8, height: int = 100, num_agents: int = 10, temp_folder='temp') -> None:
     create_folder(temp_folder)
@@ -127,8 +131,14 @@ def multi_scraping(URL: str, step: int = 8, height: int = 100, num_agents: int =
         # delay between threads
         time.sleep(1)
 
+    health_thread = threading.Thread(target=health_check)
+    health_thread.start()
+
     for t in threads:
         t.join()
+
+    exit_event.set()
+    health_thread.join()
 
 
 if __name__ == '__main__':
