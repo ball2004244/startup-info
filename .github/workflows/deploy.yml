@@ -42,7 +42,6 @@ jobs:
       - name: Run program
         run: |
           cd frontend
-          ls
           yarn start
 
       - name: Build with Jekyll
