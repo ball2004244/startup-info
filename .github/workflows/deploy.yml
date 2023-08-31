@@ -2,7 +2,7 @@ name: Deploy Website
 
 on:
   workflow_run:
-    workflows: ["crawl-data.yml"]
+    workflows: ["Crawl Startup Data"]
     types:
       - completed
 

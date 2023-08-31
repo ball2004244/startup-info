@@ -107,7 +107,6 @@ def repeat_scroll(driver, start: int = 0, end: int = 100, step: int = 8, index: 
         time.sleep(3)
 
 def health_check() -> None:
-    os.system('cls' if os.name == 'nt' else 'clear')
     print('Thread Health')
     print('Scraping with %d agents' % len(THREAD_HEALTH))
     for key, value in THREAD_HEALTH.items():
