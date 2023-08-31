@@ -1,0 +1,61 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #24c0a1;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 20px;
+  color: #fffefe;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px;
+  color: #fffefe;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: auto;
+}
+
+.cell {
+  padding: 10px;
+  word-wrap: break-word;
+  max-width: 400px;
+
+  background-color: #fffefe;
+  border: 3px solid #fec029;
+}
+
+/* This is the data table */
+#data {
+  margin: 20px;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+
+  background-color: #fec029;
+
+  /* center */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.data-row-header {
+  background-color: #24c0a1;
+  border: 3px solid #fec029;
+}

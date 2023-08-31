@@ -3,17 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <title>Test Data</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body>
     <h1>Startup Data</h1>
-    
     <div id="data">
+      <h2>Funding Infomation</h2>
       <!-- render data here -->
     </div>
 
     <script type="text/javascript">
-      const filename = 'data.json';
+      const filename = "data.json";
 
       // Define a function to fetch the data from the file
       const get_data = async () => {
@@ -27,42 +29,51 @@
         const data = await get_data();
 
         // Create a table element
-        const table = document.createElement('table');
+        const table = $("<table>").appendTo("#data");
 
-        const headerRow = document.createElement('tr');
-        headerRow.classList.add('data-row-header');
+        const headers = [
+          "Index",
+          "Company",
+          "Date",
+          "Amount",
+          "TFTD",
+          "Series",
+          "Lead Investor",
+          "Coverage",
+        ];
 
-        const headers = ['Company', 'Date', 'Amount', 'TFTD', 'Series', 'Lead Investor', 'Coverage'];
-
-        // Create a table header cell for each header and add it to the header row
-        headers.forEach(header => {
-          const th = document.createElement('th');
-          th.textContent = header;
-          th.classList.add('data-col-header');
-          headerRow.appendChild(th);
-        });
-
-        // Add the header row to the table
-        table.appendChild(headerRow);
+        // Create a table header row and add it to the table
+        $("<tr>")
+          .addClass("data-row-header")
+          .append(
+            headers.map((header) =>
+              $("<th>")
+                .addClass("data-col-header")
+                .addClass("cell")
+                .addClass("data-row-header")
+                .text(header)
+            )
+          )
+          .appendTo(table);
 
         // Create a table row for each row of data and add it to the table
-        data.forEach(rowData => {
-          const row = document.createElement('tr');
-          row.classList.add('data-row');
-          Object.values(rowData).forEach(value => {
-            const td = document.createElement('td');
-            td.textContent = value;
-            td.classList.add('data-col');
-            row.appendChild(td);
-          });
-          table.appendChild(row);
-        });
+        data.forEach((rowData, index) => {
+          const row = $("<tr>").addClass("data-row").appendTo(table);
+          $("<td>")
+            .addClass("data-col")
+            .addClass("cell")
+            .text(index + 1)
+            .appendTo(row);
 
-        // Add the table to the HTML document
-        document.getElementById('data').appendChild(table);
+          $.each(rowData, function(key, value) {
+            const td = $("<td>").addClass("data-col").addClass("cell").appendTo(row);
+            if (key === "Coverage")
+              $("<a>").text("About company").attr("href", value).appendTo(td);
+            else td.text(value);
+          });
+        });
       };
 
-      // Call the render_data function to render the data in the HTML document
       renderData();
     </script>
   </body>
