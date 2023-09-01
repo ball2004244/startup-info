@@ -43,11 +43,21 @@ jobs:
           python3 -u csv_formatter.py
           echo "End formatting!"
 
-      - name: Upload data to GitHub
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: Tam Nguyen
-          author_email: nguyenminhtam7124@gmail.com
-          message: Update data
-          new_branch: data
-          pull: --rebase --autostash
+      # - name: Upload data to GitHub
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     author_name: Tam Nguyen
+      #     author_email: nguyenminhtam7124@gmail.com
+      #     message: Update data
+      #     new_branch: data
+      #     pull: --rebase --autostash
+
+      - name: Push data to GitHub
+        run: |
+          git config --global user.name "Tam Nguyen"
+          git config --global user.email "nguyenminhtam7124@gmail.com"
+          git pull origin data --rebase
+          git checkout data
+          git add .
+          git commit -m "Update data"
+          git push origin data
