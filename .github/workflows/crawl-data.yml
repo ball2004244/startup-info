@@ -52,14 +52,23 @@ jobs:
       #     new_branch: data
       #     pull: --rebase --autostash
 
-      - name: Push data to GitHub
+      - name: Config GitHub
         run: |
           git config --global user.name "Tam Nguyen"
           git config --global user.email "nguyenminhtam7124@gmail.com"
-          git stash
-          git pull origin data --rebase
-          git checkout data
-          git stash apply
-          git add .
+
+      - name: Preserve cache
+        run: |
+          mkdir temp_data
+          mv check_set.pkl temp_data/
+          git add -A
+          git commit -m "Preserve cache"
+          git push origin data
+
+      - name: Upload data
+        run: |
+          mv final.csv temp_data/
+          git add -A
           git commit -m "Update data"
           git push origin data
+          rm -rf temp_data
