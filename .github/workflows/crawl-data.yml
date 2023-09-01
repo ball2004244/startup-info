@@ -45,7 +45,7 @@ jobs:
           python3 -u csv_formatter.py
           echo "End formatting!"
       
-      - name: Update cache data to GitHub
+      - name: Update cache to GitHub
         uses: EndBug/add-and-commit@v9
         with:
           author_name: Tam Nguyen
@@ -53,7 +53,7 @@ jobs:
           message: Update cache
           add: "check_set.pkl"
 
-      - name: Commit and push to GitHub
+      - name: Upload data to GitHub
         uses: EndBug/add-and-commit@v9
         with:
           author_name: Tam Nguyen
