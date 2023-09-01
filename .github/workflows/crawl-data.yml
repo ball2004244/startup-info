@@ -49,5 +49,5 @@ jobs:
           author_name: Tam Nguyen
           author_email: nguyenminhtam7124@gmail.com
           message: Update data
-          add: "temp final.csv"
+          add: "/*"
           new_branch: data
