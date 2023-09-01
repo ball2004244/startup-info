@@ -51,4 +51,4 @@ jobs:
           message: "Update data"
           add: "final.csv temp check_set.pkl"
           new_branch: data
-          push: orgin data --set-upstream --force
+          push: origin data --set-upstream --force
