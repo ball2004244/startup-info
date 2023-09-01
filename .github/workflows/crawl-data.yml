@@ -50,4 +50,4 @@ jobs:
           author_email: nguyenminhtam7124@gmail.com
           message: Update data
           new_branch: data
-          push: origin data --force
+          push: origin data --set-upstream --force
