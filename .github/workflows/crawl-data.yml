@@ -42,16 +42,6 @@ jobs:
           echo "Start formatting crawled data"
           python3 -u csv_formatter.py
           echo "End formatting!"
-      
-      - name: Update cache to GitHub
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: Tam Nguyen
-          author_email: nguyenminhtam7124@gmail.com
-          message: Update cache
-          add: "check_set.pkl"
-          new_branch: cache
-          push: origin cache --set-upstream --force
 
       - name: Upload data to GitHub
         uses: EndBug/add-and-commit@v9
@@ -61,4 +51,3 @@ jobs:
           message: Update data
           add: "temp final.csv"
           new_branch: data
-          push: origin data --set-upstream --force
