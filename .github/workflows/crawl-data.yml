@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: cache
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
@@ -50,7 +52,6 @@ jobs:
           author_email: nguyenminhtam7124@gmail.com
           message: Update cache
           add: "check_set.pkl"
-          new_branch: cache
 
       - name: Commit and push to GitHub
         uses: EndBug/add-and-commit@v9
