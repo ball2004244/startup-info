@@ -43,27 +43,11 @@ jobs:
           python3 -u csv_formatter.py
           echo "End formatting!"
 
-      - name: Config GitHub
-        run: |
-          git config --global user.name "Tam Nguyen"
-          git config --global user.email "nguyenminhtam7124@gmail.com"
-
-      - name: Preserve cache
-        run: |
-          mkdir temp_data
-          mv check_set.pkl temp_data/
-          git add -A
-          git commit -m "Preserve cache"
-          git push origin data
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload data
-        run: |
-          mv final.csv temp_data/
-          git add -A
-          git commit -m "Update data"
-          git push origin data
-          rm -rf temp_data
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Tam Nguyen
+          author_email: nguyenminhtam7124@gmail.com
+          message: "Update data"
+          add: "final.csv temp check_set.pkl"
+          push: orgin data --set-upstream --force
