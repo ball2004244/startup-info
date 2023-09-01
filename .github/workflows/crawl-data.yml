@@ -56,7 +56,8 @@ jobs:
         run: |
           git config --global user.name "Tam Nguyen"
           git config --global user.email "nguyenminhtam7124@gmail.com"
-          git pull origin data --rebase --autostash
+          git stash
+          git pull origin data --rebase
           git checkout data
           git stash apply
           git add .
