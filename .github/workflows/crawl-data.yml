@@ -51,4 +51,4 @@ jobs:
           pull: --rebase --autostash
           message: Update data
           new_branch: data
-          push: origin data
+          fetch: true
