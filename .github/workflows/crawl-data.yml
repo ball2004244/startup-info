@@ -50,6 +50,8 @@ jobs:
           author_email: nguyenminhtam7124@gmail.com
           message: Update cache
           add: "check_set.pkl"
+          new_branch: cache
+          push: origin cache --set-upstream --force
 
       - name: Upload data to GitHub
         uses: EndBug/add-and-commit@v9
