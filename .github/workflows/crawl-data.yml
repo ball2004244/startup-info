@@ -55,6 +55,8 @@ jobs:
           git add -A
           git commit -m "Preserve cache"
           git push origin data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload data
         run: |
@@ -63,3 +65,5 @@ jobs:
           git commit -m "Update data"
           git push origin data
           rm -rf temp_data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
