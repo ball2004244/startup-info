@@ -48,7 +48,6 @@ jobs:
         with:
           author_name: Tam Nguyen
           author_email: nguyenminhtam7124@gmail.com
-          pull: --rebase --autostash
           message: Update data
           new_branch: data
           fetch: true
