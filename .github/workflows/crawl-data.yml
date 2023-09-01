@@ -50,4 +50,5 @@ jobs:
           author_email: nguyenminhtam7124@gmail.com
           message: "Update data"
           add: "final.csv temp check_set.pkl"
+          new_branch: data
           push: orgin data --set-upstream --force
